@@ -3,34 +3,30 @@ package com.mydataparty.pages;
 import com.codeborne.selenide.SelenideElement;
 import com.mydataparty.pages.components.CalenderComponent;
 
+import java.io.File;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class RegistrationPage {
+    public CalenderComponent calenderComponent = new CalenderComponent();
 
     SelenideElement
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             emailInput = $("#userEmail"),
-            genderSelection = $("[for=gender-radio-1]"), // gets override from selectGender method for inputs 'Female' and 'Other'.
+            genderSelection = $("[for=gender-radio-1]"), // override from selectGender method for 'Female' and 'Other'.
             numberInput = $("#userNumber"),
-
-
             addressInput = $("#currentAddress"),
-            resultsTable = $(".table-responsive");
-    /*
-
-// 1st option
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__year-dropdown-container").find(byText("2012")).click();
-        // $(".react-datepicker__year-dropdown-container").selectOption("2012");
-        $(".react-datepicker__month-dropdown-container").find(byText("February")).click();
-        $("[aria-label='Choose Wednesday, February 29th, 2012']").click();
-
-
-        $("#subjectsInput").setValue("Math").pressEnter();
+            resultsTable = $(".table-responsive"),
+            subjectsInput = $("#subjectsInput"),
+            hobbySelectionSports = $(byText("Sports")),
+            hobbySelectionReading = $(byText("Reading")),
+            hobbySelectionMusic = $(byText("Music")),
+            uploadButton = $("#uploadPicture");
+/*        .setValue("Math").pressEnter();
         var fileForUpload = new File("src/test/resources/img/upload.txt");
 
         $("#uploadPicture").uploadFile(fileForUpload);
@@ -65,7 +61,6 @@ public class RegistrationPage {
      */
 
 
-    public CalenderComponent calenderComponent = new CalenderComponent();
 
     public RegistrationPage openPage() {
         open("https://demoqa.com/automation-practice-form");
@@ -94,7 +89,7 @@ public class RegistrationPage {
 
 
 
-    //option 2
+
     public RegistrationPage selectGender(String gender) {
 
         if (gender.equalsIgnoreCase("Female"))
@@ -134,12 +129,39 @@ public class RegistrationPage {
         return this;
     }
 
+    public RegistrationPage typeSubjects(String subjects){
+        subjectsInput.setValue(subjects).pressEnter();
+        return this;
+    }
 
+    public RegistrationPage selectHobbySports(){
+        hobbySelectionSports.click();
+        return this;
+    }
+
+    public RegistrationPage selectHobbyReading(){
+        hobbySelectionReading.click();
+        return this;
+    }
+
+    public RegistrationPage selectHobbyMusic(){
+        hobbySelectionMusic.click();
+        return this;
+    }
+
+
+    public RegistrationPage uploadFile(File file) {
+        uploadButton.uploadFile(file);
+        return this;
+    }
 
     public RegistrationPage typeAddress(String userAddress) {
             addressInput.setValue(userAddress);
         return this;
     }
+
+
+
   // with locators and using .parent():
     public RegistrationPage checkResults(String key, String value) {
         resultsTable.$(byText(key)).parent().shouldHave(text(value));
