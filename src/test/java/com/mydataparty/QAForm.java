@@ -53,7 +53,7 @@ public class QAForm {
                         .checkResults("Date of Birth", day + " " + month + "," +year)
                         .checkResults("Subjects", subject)
                         .checkResults("Hobbies", "Sports, Reading, Music")
-                        //.checkResults("Picture", fileForUpload.toString())
+                        .checkResults("Picture", "upload.txt")
                         .checkResults("Address", address)
                         .checkResults("State and City", state + " " + city);
 
